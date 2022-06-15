@@ -1,30 +1,25 @@
-import {
-  ActionIcon,
-  Group,
-  Loader,
-  ScrollArea,
-  Table,
-  Text,
-} from "@mantine/core";
-import type { NextPage } from "next";
-import React from "react";
+import { ActionIcon, Group, Loader, Table, Text } from "@mantine/core";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Trash } from "tabler-icons-react";
-import { Message } from "../entities/Message";
-import { deleteMessage, getMessages } from "../utils/api";
+import { FolderMessage } from "../entities/FolderMessage";
+import { deleteMessage, getFolder } from "../utils/api";
 
-const Home: NextPage = () => {
+type Props = {
+  id: string;
+};
+
+const FolderMessages = ({ id }: Props) => {
   const queryClient = useQueryClient();
-  const { isLoading, error, data } = useQuery<Message[], Error>(
-    "messages",
-    getMessages
+  const { isLoading, error, data } = useQuery<FolderMessage[], Error>(
+    "folder",
+    () => getFolder(id)
   );
   const mutation = useMutation(deleteMessage, {
     onSuccess: (response, value) => {
       console.log(response, value, data);
       queryClient.setQueryData(
-        ["messages"],
-        data!.filter((message) => message.id !== value)
+        ["folder"],
+        data!.filter((message) => message["message-id"] !== value)
       );
     },
   });
@@ -38,7 +33,7 @@ const Home: NextPage = () => {
   if (error) return <div>An error has occurred: {error.message}</div>;
 
   const rows = data!.map((item) => (
-    <tr key={item.id}>
+    <tr key={item["message-id"]}>
       <td>
         <Group spacing="sm">
           <Text size="sm" weight={500}>
@@ -53,7 +48,10 @@ const Home: NextPage = () => {
       </td>
       <td>
         <Group spacing={0} position="right">
-          <ActionIcon color="red" onClick={() => handleDeleteMessage(item.id)}>
+          <ActionIcon
+            color="red"
+            onClick={() => handleDeleteMessage(item["message-id"])}
+          >
             <Trash size={16} />
           </ActionIcon>
         </Group>
@@ -62,12 +60,10 @@ const Home: NextPage = () => {
   ));
 
   return (
-    <ScrollArea>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
-        <tbody>{rows}</tbody>
-      </Table>
-    </ScrollArea>
+    <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+      <tbody>{rows}</tbody>
+    </Table>
   );
 };
 
-export default Home;
+export default FolderMessages;

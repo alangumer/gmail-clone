@@ -8,9 +8,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.8",
+    "@mantine/dates": "^4.2.8",
+    "@mantine/form": "^4.2.8",
+    "@mantine/hooks": "^4.2.8",
+    "@mantine/modals": "^4.2.8",
+    "@mantine/next": "^4.2.8",
+    "@mantine/rte": "^4.2.8",
+    "dayjs": "^1.11.3",
+    "formik": "^2.2.9",
     "next": "12.1.6",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-query": "^3.39.1",
+    "tabler-icons-react": "^1.48.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.42",

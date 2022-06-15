@@ -18,6 +18,16 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+## Functionality
+
+### API
+
+It includes all the API endpoints since it was quick and easy. The POST and DELETE endpoints only log a message.
+
+### Frontend
+
+It displays all the folders, messages in a folder, delete a message and send an email, those were the features that I thought were more important to the project based on the time constraint.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
